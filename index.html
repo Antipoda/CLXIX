@@ -1,0 +1,604 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+        <meta name="mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <link rel="stylesheet" href="css/leaflet.css"><link rel="stylesheet" href="css/L.Control.Locate.min.css">
+        <link rel="stylesheet" href="css/qgis2web.css"><link rel="stylesheet" href="css/fontawesome-all.min.css">
+        <link rel="stylesheet" href="css/leaflet-measure.css">
+        <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+        </style>
+        <title></title>
+    </head>
+    <body>
+        <div id="map">
+        </div>
+        <script src="js/qgis2web_expressions.js"></script>
+        <script src="js/leaflet.js"></script><script src="js/L.Control.Locate.min.js"></script>
+        <script src="js/multi-style-layer.js"></script>
+        <script src="js/leaflet.rotatedMarker.js"></script>
+        <script src="js/leaflet.pattern.js"></script>
+        <script src="js/leaflet-hash.js"></script>
+        <script src="js/Autolinker.min.js"></script>
+        <script src="js/rbush.min.js"></script>
+        <script src="js/labelgun.min.js"></script>
+        <script src="js/labels.js"></script>
+        <script src="js/leaflet-measure.js"></script>
+        <script src="data/AntiguaLagunadeLermaXIX_1.js"></script>
+        <script src="data/CinegasdeLerma2023_2.js"></script>
+        <script src="data/AntiguoRodeLermaXIX_3.js"></script>
+        <script src="data/CiudaddeLerma1927_4.js"></script>
+        <script src="data/CaminosdelaCiudaddeLerma1927_5.js"></script>
+        <script src="data/RedFerroviaria_6.js"></script>
+        <script src="data/DesagedelRoLerma1857_7.js"></script>
+        <script>
+        var map = L.map('map', {
+            zoomControl:true, maxZoom:20, minZoom:1
+        })
+        var hash = new L.Hash(map);
+        map.attributionControl.setPrefix('<a href="https://github.com/tomchadwin/qgis2web" target="_blank">qgis2web</a> &middot; <a href="https://leafletjs.com" title="A JS library for interactive maps">Leaflet</a> &middot; <a href="https://qgis.org">QGIS</a>');
+        var autolinker = new Autolinker({truncate: {length: 30, location: 'smart'}});
+        L.control.locate({locateOptions: {maxZoom: 19}}).addTo(map);
+        var measureControl = new L.Control.Measure({
+            position: 'topleft',
+            primaryLengthUnit: 'meters',
+            secondaryLengthUnit: 'kilometers',
+            primaryAreaUnit: 'sqmeters',
+            secondaryAreaUnit: 'hectares'
+        });
+        measureControl.addTo(map);
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .innerHTML = '';
+        document.getElementsByClassName('leaflet-control-measure-toggle')[0]
+        .className += ' fas fa-ruler';
+        var bounds_group = new L.featureGroup([]);
+        function setBounds() {
+            if (bounds_group.getLayers().length) {
+                map.fitBounds(bounds_group.getBounds());
+            }
+        }
+        map.createPane('pane_OpenStreetMap_0');
+        map.getPane('pane_OpenStreetMap_0').style.zIndex = 400;
+        var layer_OpenStreetMap_0 = L.tileLayer('https://a.tile.openstreetmap.de/{z}/{x}/{y}.png', {
+            pane: 'pane_OpenStreetMap_0',
+            opacity: 1.0,
+            attribution: '<a href="http://www.openstreetmap.org/copyright">OpenStreetMap contributors, under ODbL</a>',
+            minZoom: 1,
+            maxZoom: 20,
+            minNativeZoom: 0,
+            maxNativeZoom: 18
+        });
+        layer_OpenStreetMap_0;
+        map.addLayer(layer_OpenStreetMap_0);
+        function pop_AntiguaLagunadeLermaXIX_1(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CLAVE'] !== null ? autolinker.link(feature.properties['CLAVE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DESCRIPCIO'] !== null ? autolinker.link(feature.properties['DESCRIPCIO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['A2'] !== null ? autolinker.link(feature.properties['A2'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_AntiguaLagunadeLermaXIX_1_0() {
+            return {
+                pane: 'pane_AntiguaLagunadeLermaXIX_1',
+                opacity: 1,
+                color: 'rgba(100,152,210,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(165,191,221,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_AntiguaLagunadeLermaXIX_1');
+        map.getPane('pane_AntiguaLagunadeLermaXIX_1').style.zIndex = 401;
+        map.getPane('pane_AntiguaLagunadeLermaXIX_1').style['mix-blend-mode'] = 'normal';
+        var layer_AntiguaLagunadeLermaXIX_1 = new L.geoJson(json_AntiguaLagunadeLermaXIX_1, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_AntiguaLagunadeLermaXIX_1',
+            layerName: 'layer_AntiguaLagunadeLermaXIX_1',
+            pane: 'pane_AntiguaLagunadeLermaXIX_1',
+            onEachFeature: pop_AntiguaLagunadeLermaXIX_1,
+            style: style_AntiguaLagunadeLermaXIX_1_0,
+        });
+        bounds_group.addLayer(layer_AntiguaLagunadeLermaXIX_1);
+        map.addLayer(layer_AntiguaLagunadeLermaXIX_1);
+        function pop_CinegasdeLerma2023_2(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ID_ANP'] !== null ? autolinker.link(feature.properties['ID_ANP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOMBRE'] !== null ? autolinker.link(feature.properties['NOMBRE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CAT_DECRET'] !== null ? autolinker.link(feature.properties['CAT_DECRET'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CAT_MANEJO'] !== null ? autolinker.link(feature.properties['CAT_MANEJO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ESTADOS'] !== null ? autolinker.link(feature.properties['ESTADOS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['MUNICIPIOS'] !== null ? autolinker.link(feature.properties['MUNICIPIOS'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['REGION'] !== null ? autolinker.link(feature.properties['REGION'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SUPERFICIE'] !== null ? autolinker.link(feature.properties['SUPERFICIE'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['S_TERRES'] !== null ? autolinker.link(feature.properties['S_TERRES'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['S_MARINA'] !== null ? autolinker.link(feature.properties['S_MARINA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PRIM_DEC'] !== null ? autolinker.link(feature.properties['PRIM_DEC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['ULT_DOF'] !== null ? autolinker.link(feature.properties['ULT_DOF'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['PCM1'] !== null ? autolinker.link(feature.properties['PCM1'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SINAP'] !== null ? autolinker.link(feature.properties['SINAP'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CinegasdeLerma2023_2_0() {
+            return {
+                pane: 'pane_CinegasdeLerma2023_2',
+                opacity: 1,
+                color: 'rgba(100,152,210,0.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(31,120,180,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_CinegasdeLerma2023_2');
+        map.getPane('pane_CinegasdeLerma2023_2').style.zIndex = 402;
+        map.getPane('pane_CinegasdeLerma2023_2').style['mix-blend-mode'] = 'normal';
+        var layer_CinegasdeLerma2023_2 = new L.geoJson(json_CinegasdeLerma2023_2, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_CinegasdeLerma2023_2',
+            layerName: 'layer_CinegasdeLerma2023_2',
+            pane: 'pane_CinegasdeLerma2023_2',
+            onEachFeature: pop_CinegasdeLerma2023_2,
+            style: style_CinegasdeLerma2023_2_0,
+        });
+        bounds_group.addLayer(layer_CinegasdeLerma2023_2);
+        map.addLayer(layer_CinegasdeLerma2023_2);
+        function pop_AntiguoRodeLermaXIX_3(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id'] !== null ? autolinker.link(feature.properties['id'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['long'] !== null ? autolinker.link(feature.properties['long'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_AntiguoRodeLermaXIX_3_0() {
+            return {
+                pane: 'pane_AntiguoRodeLermaXIX_3',
+                opacity: 1,
+                color: 'rgba(31,120,180,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        function style_AntiguoRodeLermaXIX_3_1() {
+            return {
+                pane: 'pane_AntiguoRodeLermaXIX_3',
+                opacity: 1,
+                color: 'rgba(0,52,182,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        function style_AntiguoRodeLermaXIX_3_2() {
+            return {
+                pane: 'pane_AntiguoRodeLermaXIX_3',
+                opacity: 1,
+                color: 'rgba(0,35,116,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        function style_AntiguoRodeLermaXIX_3_3() {
+            return {
+                pane: 'pane_AntiguoRodeLermaXIX_3',
+                opacity: 1,
+                color: 'rgba(0,52,182,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'round',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        function style_AntiguoRodeLermaXIX_3_4() {
+            return {
+                pane: 'pane_AntiguoRodeLermaXIX_3',
+                opacity: 1,
+                color: 'rgba(31,120,180,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'round',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_AntiguoRodeLermaXIX_3');
+        map.getPane('pane_AntiguoRodeLermaXIX_3').style.zIndex = 403;
+        map.getPane('pane_AntiguoRodeLermaXIX_3').style['mix-blend-mode'] = 'normal';
+        var layer_AntiguoRodeLermaXIX_3 = new L.geoJson.multiStyle(json_AntiguoRodeLermaXIX_3, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_AntiguoRodeLermaXIX_3',
+            layerName: 'layer_AntiguoRodeLermaXIX_3',
+            pane: 'pane_AntiguoRodeLermaXIX_3',
+            onEachFeature: pop_AntiguoRodeLermaXIX_3,
+            styles: [style_AntiguoRodeLermaXIX_3_0,style_AntiguoRodeLermaXIX_3_1,style_AntiguoRodeLermaXIX_3_2,style_AntiguoRodeLermaXIX_3_3,style_AntiguoRodeLermaXIX_3_4,]
+        });
+        bounds_group.addLayer(layer_AntiguoRodeLermaXIX_3);
+        map.addLayer(layer_AntiguoRodeLermaXIX_3);
+        function pop_CiudaddeLerma1927_4(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVEGEO'] !== null ? autolinker.link(feature.properties['CVEGEO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVE_ENT'] !== null ? autolinker.link(feature.properties['CVE_ENT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVE_MUN'] !== null ? autolinker.link(feature.properties['CVE_MUN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVE_LOC'] !== null ? autolinker.link(feature.properties['CVE_LOC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVE_AGEB'] !== null ? autolinker.link(feature.properties['CVE_AGEB'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVE_MZA'] !== null ? autolinker.link(feature.properties['CVE_MZA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AMBITO'] !== null ? autolinker.link(feature.properties['AMBITO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TIPOMZA'] !== null ? autolinker.link(feature.properties['TIPOMZA'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CiudaddeLerma1927_4_0() {
+            return {
+                pane: 'pane_CiudaddeLerma1927_4',
+                opacity: 1,
+                color: 'rgba(35,35,35,1.0)',
+                dashArray: '',
+                lineCap: 'butt',
+                lineJoin: 'miter',
+                weight: 1.0, 
+                fill: true,
+                fillOpacity: 1,
+                fillColor: 'rgba(0,0,0,1.0)',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_CiudaddeLerma1927_4');
+        map.getPane('pane_CiudaddeLerma1927_4').style.zIndex = 404;
+        map.getPane('pane_CiudaddeLerma1927_4').style['mix-blend-mode'] = 'normal';
+        var layer_CiudaddeLerma1927_4 = new L.geoJson(json_CiudaddeLerma1927_4, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_CiudaddeLerma1927_4',
+            layerName: 'layer_CiudaddeLerma1927_4',
+            pane: 'pane_CiudaddeLerma1927_4',
+            onEachFeature: pop_CiudaddeLerma1927_4,
+            style: style_CiudaddeLerma1927_4_0,
+        });
+        bounds_group.addLayer(layer_CiudaddeLerma1927_4);
+        map.addLayer(layer_CiudaddeLerma1927_4);
+        function pop_CaminosdelaCiudaddeLerma1927_5(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVEGEO'] !== null ? autolinker.link(feature.properties['CVEGEO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVE_ENT'] !== null ? autolinker.link(feature.properties['CVE_ENT'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVE_MUN'] !== null ? autolinker.link(feature.properties['CVE_MUN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVE_LOC'] !== null ? autolinker.link(feature.properties['CVE_LOC'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVEVIAL'] !== null ? autolinker.link(feature.properties['CVEVIAL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['CVESEG'] !== null ? autolinker.link(feature.properties['CVESEG'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['NOMVIAL'] !== null ? autolinker.link(feature.properties['NOMVIAL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TIPOVIAL'] !== null ? autolinker.link(feature.properties['TIPOVIAL'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['SENTIDO'] !== null ? autolinker.link(feature.properties['SENTIDO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['TIPOSEN'] !== null ? autolinker.link(feature.properties['TIPOSEN'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['AMBITO'] !== null ? autolinker.link(feature.properties['AMBITO'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_CaminosdelaCiudaddeLerma1927_5_0() {
+            return {
+                pane: 'pane_CaminosdelaCiudaddeLerma1927_5',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 4.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        function style_CaminosdelaCiudaddeLerma1927_5_1() {
+            return {
+                pane: 'pane_CaminosdelaCiudaddeLerma1927_5',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'round',
+                lineJoin: 'round',
+                weight: 3.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_CaminosdelaCiudaddeLerma1927_5');
+        map.getPane('pane_CaminosdelaCiudaddeLerma1927_5').style.zIndex = 405;
+        map.getPane('pane_CaminosdelaCiudaddeLerma1927_5').style['mix-blend-mode'] = 'normal';
+        var layer_CaminosdelaCiudaddeLerma1927_5 = new L.geoJson.multiStyle(json_CaminosdelaCiudaddeLerma1927_5, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_CaminosdelaCiudaddeLerma1927_5',
+            layerName: 'layer_CaminosdelaCiudaddeLerma1927_5',
+            pane: 'pane_CaminosdelaCiudaddeLerma1927_5',
+            onEachFeature: pop_CaminosdelaCiudaddeLerma1927_5,
+            styles: [style_CaminosdelaCiudaddeLerma1927_5_0,style_CaminosdelaCiudaddeLerma1927_5_1,]
+        });
+        bounds_group.addLayer(layer_CaminosdelaCiudaddeLerma1927_5);
+        map.addLayer(layer_CaminosdelaCiudaddeLerma1927_5);
+        function pop_RedFerroviaria_6(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['OBJECTID'] !== null ? autolinker.link(feature.properties['OBJECTID'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Nombre'] !== null ? autolinker.link(feature.properties['Nombre'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Fase'] !== null ? autolinker.link(feature.properties['Fase'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Tipo'] !== null ? autolinker.link(feature.properties['Tipo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Fecha'] !== null ? autolinker.link(feature.properties['Fecha'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Longitud'] !== null ? autolinker.link(feature.properties['Longitud'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['DerechoVia'] !== null ? autolinker.link(feature.properties['DerechoVia'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Empresa'] !== null ? autolinker.link(feature.properties['Empresa'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Caracteris'] !== null ? autolinker.link(feature.properties['Caracteris'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Tramo'] !== null ? autolinker.link(feature.properties['Tramo'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_RedFerroviaria_6_0() {
+            return {
+                pane: 'pane_RedFerroviaria_6',
+                opacity: 1,
+                color: 'rgba(134,134,134,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'round',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        function style_RedFerroviaria_6_1() {
+            return {
+                pane: 'pane_RedFerroviaria_6',
+                opacity: 1,
+                color: 'rgba(134,134,134,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 1.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        function style_RedFerroviaria_6_2() {
+            return {
+                pane: 'pane_RedFerroviaria_6',
+                interactive: false,
+            }
+        }
+        map.createPane('pane_RedFerroviaria_6');
+        map.getPane('pane_RedFerroviaria_6').style.zIndex = 406;
+        map.getPane('pane_RedFerroviaria_6').style['mix-blend-mode'] = 'normal';
+        var layer_RedFerroviaria_6 = new L.geoJson.multiStyle(json_RedFerroviaria_6, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_RedFerroviaria_6',
+            layerName: 'layer_RedFerroviaria_6',
+            pane: 'pane_RedFerroviaria_6',
+            onEachFeature: pop_RedFerroviaria_6,
+            styles: [style_RedFerroviaria_6_0,style_RedFerroviaria_6_1,style_RedFerroviaria_6_2,]
+        });
+        bounds_group.addLayer(layer_RedFerroviaria_6);
+        map.addLayer(layer_RedFerroviaria_6);
+        function pop_DesagedelRoLerma1857_7(feature, layer) {
+            var popupContent = '<table>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['num_consec'] !== null ? autolinker.link(feature.properties['num_consec'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_rha'] !== null ? autolinker.link(feature.properties['id_rha'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_cuehid'] !== null ? autolinker.link(feature.properties['id_cuehid'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nom_rio'] !== null ? autolinker.link(feature.properties['nom_rio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['vertiente'] !== null ? autolinker.link(feature.properties['vertiente'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['escur_natm'] !== null ? autolinker.link(feature.properties['escur_natm'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['orden_rio'] !== null ? autolinker.link(feature.properties['orden_rio'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['longitud'] !== null ? autolinker.link(feature.properties['longitud'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['a_c_hidrog'] !== null ? autolinker.link(feature.properties['a_c_hidrog'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['año'] !== null ? autolinker.link(feature.properties['año'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['id_rh'] !== null ? autolinker.link(feature.properties['id_rh'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['nom_rh'] !== null ? autolinker.link(feature.properties['nom_rh'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                    <tr>\
+                        <td colspan="2">' + (feature.properties['Shape_len'] !== null ? autolinker.link(feature.properties['Shape_len'].toLocaleString()) : '') + '</td>\
+                    </tr>\
+                </table>';
+            layer.bindPopup(popupContent, {maxHeight: 400});
+        }
+
+        function style_DesagedelRoLerma1857_7_0() {
+            return {
+                pane: 'pane_DesagedelRoLerma1857_7',
+                opacity: 1,
+                color: 'rgba(0,0,0,1.0)',
+                dashArray: '',
+                lineCap: 'square',
+                lineJoin: 'bevel',
+                weight: 8.0,
+                fillOpacity: 0,
+                interactive: false,
+            }
+        }
+        map.createPane('pane_DesagedelRoLerma1857_7');
+        map.getPane('pane_DesagedelRoLerma1857_7').style.zIndex = 407;
+        map.getPane('pane_DesagedelRoLerma1857_7').style['mix-blend-mode'] = 'normal';
+        var layer_DesagedelRoLerma1857_7 = new L.geoJson(json_DesagedelRoLerma1857_7, {
+            attribution: '',
+            interactive: false,
+            dataVar: 'json_DesagedelRoLerma1857_7',
+            layerName: 'layer_DesagedelRoLerma1857_7',
+            pane: 'pane_DesagedelRoLerma1857_7',
+            onEachFeature: pop_DesagedelRoLerma1857_7,
+            style: style_DesagedelRoLerma1857_7_0,
+        });
+        bounds_group.addLayer(layer_DesagedelRoLerma1857_7);
+        map.addLayer(layer_DesagedelRoLerma1857_7);
+        var baseMaps = {};
+        L.control.layers(baseMaps,{'<img src="legend/DesagedelRoLerma1857_7.png" /> Desagüe del Río Lerma 1857': layer_DesagedelRoLerma1857_7,'<img src="legend/RedFerroviaria_6.png" /> Red Ferroviaria': layer_RedFerroviaria_6,'<img src="legend/CaminosdelaCiudaddeLerma1927_5.png" /> Caminos de la Ciudad de Lerma 1927': layer_CaminosdelaCiudaddeLerma1927_5,'<img src="legend/CiudaddeLerma1927_4.png" /> Ciudad de Lerma 1927': layer_CiudaddeLerma1927_4,'<img src="legend/AntiguoRodeLermaXIX_3.png" /> Antiguo Río de Lerma XIX': layer_AntiguoRodeLermaXIX_3,'<img src="legend/CinegasdeLerma2023_2.png" /> Ciénegas de Lerma 2023': layer_CinegasdeLerma2023_2,'<img src="legend/AntiguaLagunadeLermaXIX_1.png" /> Antigua Laguna de Lerma XIX': layer_AntiguaLagunadeLermaXIX_1,"OpenStreetMap": layer_OpenStreetMap_0,},{collapsed:false}).addTo(map);
+        setBounds();
+        resetLabels([layer_CinegasdeLerma2023_2]);
+        map.on("zoomend", function(){
+            resetLabels([layer_CinegasdeLerma2023_2]);
+        });
+        map.on("layeradd", function(){
+            resetLabels([layer_CinegasdeLerma2023_2]);
+        });
+        map.on("layerremove", function(){
+            resetLabels([layer_CinegasdeLerma2023_2]);
+        });
+        </script>
+    </body>
+</html>
